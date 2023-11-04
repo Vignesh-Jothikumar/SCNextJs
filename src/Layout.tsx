@@ -6,7 +6,6 @@ import {
   getPublicUrl,
   LayoutServiceData,
 } from '@sitecore-jss/sitecore-jss-nextjs';
-import Navigation from 'src/Navigation';
 
 // Prefix public assets with a public URL to enable compatibility with Sitecore editors.
 // If you're not supporting Sitecore editors, you can remove this.
@@ -35,9 +34,18 @@ const Layout = ({ layoutData }: LayoutProps): JSX.Element => {
       */}
       <VisitorIdentification />
 
-      <Navigation />
+      {/* <Navigation /> */}
       {/* root placeholder for the app, which we add components to using route data */}
-      <div className="container">{route && <Placeholder name="jss-main" rendering={route} />}</div>
+      <div className="container">
+        {route && (
+          <>
+            <Placeholder name="jss-bodytop" rendering={route} />
+            <Placeholder name="jss-main" rendering={route} />
+            <Placeholder name="jss-demo" rendering={route} />
+            <Placeholder name="jss-bodybottom" rendering={route} />
+          </>
+        )}
+      </div>
     </>
   );
 };
