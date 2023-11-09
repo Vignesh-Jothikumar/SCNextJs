@@ -1,17 +1,21 @@
-import { Text, Field, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
+import { Text, Field, RichText } from '@sitecore-jss/sitecore-jss-nextjs';
 import { ComponentProps } from 'lib/component-props';
 
-type DemoProps = ComponentProps & {
+export interface DemoProps extends Partial<ComponentProps> {
   fields: {
     heading: Field<string>;
+    description: Field<string>;
   };
+}
+
+const Demo = (props: DemoProps): JSX.Element => {
+  console.log(props.fields.heading);
+  return (
+    <div>
+      <Text field={props.fields.heading} />
+      <Text field={props.fields.description} />
+    </div>
+  );
 };
 
-const Demo = (props: DemoProps): JSX.Element => (
-  <div>
-    <p>Demo Component</p>
-    <Text field={props.fields.heading} />
-  </div>
-);
-
-export default withDatasourceCheck()<DemoProps>(Demo);
+export default Demo;
