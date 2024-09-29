@@ -2,6 +2,7 @@ import { Field } from '@sitecore-jss/sitecore-jss-nextjs';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { ComponentProps } from 'lib/component-props';
+import React from 'react';
 
 type MyCatFactsProps = ComponentProps & {
   fields: {
