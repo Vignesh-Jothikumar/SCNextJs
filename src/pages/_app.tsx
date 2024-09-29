@@ -5,6 +5,7 @@ import { MantineProvider } from '@mantine/core';
 import mantineTheme from 'src/assets/mantineTheme';
 import NProgress from 'nprogress';
 import { SitecorePageProps } from 'lib/page-props';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Using bootstrap and nprogress are completely optional.
 //  bootstrap is used here to provide a clean layout for samples, without needing extra CSS in the sample app
@@ -20,6 +21,15 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 0,
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 function App({ Component, pageProps }: AppProps<SitecorePageProps>): JSX.Element {
   const { dictionary, ...rest } = pageProps;
 
@@ -29,7 +39,9 @@ function App({ Component, pageProps }: AppProps<SitecorePageProps>): JSX.Element
     // If your app is not multilingual, next-localization and references to it can be removed.
     <I18nProvider lngDict={dictionary} locale={pageProps.locale}>
       <MantineProvider theme={mantineTheme}>
-        <Component {...rest} />
+        <QueryClientProvider client={queryClient}>
+          <Component {...rest} />
+        </QueryClientProvider>
       </MantineProvider>
     </I18nProvider>
   );
