@@ -1,4 +1,4 @@
-import { Text, Field, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs';
+import { Field } from '@sitecore-jss/sitecore-jss-nextjs';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { ComponentProps } from 'lib/component-props';
@@ -27,7 +27,8 @@ export interface Status {
   sentCount: number;
 }
 
-const MyCatFacts = (): JSX.Element => {
+const MyCatFacts = (props: MyCatFactsProps): JSX.Element => {
+  console.log(props);
   const { isLoading, data, error } = useQuery({
     queryKey: ['mycatfacts'],
     queryFn: () =>
